@@ -11,6 +11,19 @@ import 'dart:async' as _i2;
 import 'dart:io' as _i3;
 import 'protocol.dart' as _i4;
 
+class _EndpointArtikool extends _i1.EndpointRef {
+  _EndpointArtikool(_i1.EndpointCaller caller) : super(caller);
+
+  @override
+  String get name => 'artikool';
+
+  _i2.Future<String> getArticles() => caller.callServerEndpoint<String>(
+        'artikool',
+        'getArticles',
+        {},
+      );
+}
+
 class _EndpointExample extends _i1.EndpointRef {
   _EndpointExample(_i1.EndpointCaller caller) : super(caller);
 
@@ -35,13 +48,19 @@ class Client extends _i1.ServerpodClient {
           context: context,
           authenticationKeyManager: authenticationKeyManager,
         ) {
+    artikool = _EndpointArtikool(this);
     example = _EndpointExample(this);
   }
+
+  late final _EndpointArtikool artikool;
 
   late final _EndpointExample example;
 
   @override
-  Map<String, _i1.EndpointRef> get endpointRefLookup => {'example': example};
+  Map<String, _i1.EndpointRef> get endpointRefLookup => {
+        'artikool': artikool,
+        'example': example,
+      };
   @override
   Map<String, _i1.ModuleEndpointCaller> get moduleLookup => {};
 }

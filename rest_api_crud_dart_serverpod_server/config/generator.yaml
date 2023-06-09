@@ -1,0 +1,3 @@
+type: server
+
+client_package_path: ../rest_api_crud_dart_serverpod_client
